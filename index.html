@@ -12,9 +12,9 @@
 <body>
     <div class="scores"><a href="highscores.html">View Highscores</a></div>
 
-    <div class="timer">Time: <span id="time">0</span></div>
+    <div class="timer">Time: <span id="time">70</span></div>
     <div class="wrapper">
-        <div id="start-screen" class="start">
+        <div id="start-screen" >
             <H1>Code Quiz</H1>
             <p>
                 Try to answer the following questions within the time limit. Incorrect answers will decrease your time by 10 seconds.
@@ -25,7 +25,7 @@
 
 
          <div id="questions" class="hide">
-             <h2 id="questions-title"></h2>
+             <h2 id="question-title"></h2>
              <div id="choices" class="choices"></div>
          </div>  
          
@@ -40,8 +40,8 @@
           <div id="feedback" class="feedback hide"></div>
     </div>
     
-    <script src="questions.js"></script>
-    <script src="logic.js"></script>
+    <script src="./js/questions.js"></script>
+    <script src="./js/logic.js"></script>
     
 
 </body>
