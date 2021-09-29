@@ -35,5 +35,3 @@ var questions = [
         answer: "font-size"
     }
 ];
-
-console.log("questions");
