@@ -10,7 +10,7 @@ var timerElement = document.querySelector("#time");
 var questionChoices = document.querySelector("#choices");
 var endScreen = document.querySelector("#end-screen");
 var highScoreName = document.querySelector("#initials")
-var checkAnswer = document.querySelector("#checkAnswer")
+var seeAnswer = document.querySelector("#checkAnswer")
 
 //Start the quiz
 function startQuiz() {
@@ -36,30 +36,31 @@ function getCurrentQuestion() {
       let choices = document.createElement("button");
         choices.setAttribute("class", "choice");
         choices.setAttribute("value", currentQuestion.choice[i]);
-    
         choices.textContent = i + 1 +"." + currentQuestion.choice[i]
-       
-       choices.onclick = checkAnswer;
-
-      questionChoices.appendChild(choices);
+        console.log(choices);
+        choices.addEventListener("click", checkAnswer);
+        questionChoices.appendChild(choices);
   }
 }
-console.log(questions);
 
-function checkAnswer (choice,answer) {
-  questionChoicesEl.addEventListener("click", choice(event))
-  console.log(event);
-  if (choice === answer){
+
+function checkAnswer () {
+ console.log(this);
+  if (this.value === questions[currentQuestionIndex].answer) {
     console.log("correct");
-
-  } else if (choice !== answer){
+} else if (this.value !== questions[currentQuestionIndex].answer) {
     console.log("wrong");
-  }else{
-    console.log("nextQuestion");
-  }
-  
+ }
+  currentQuestionIndex++ 
+  getCurrentQuestion()
+  if (currentQuestionIndex === questions.length) {
+    /// end quiz function
+    //function endscreen() 
+  }else {
+      getCurrentQuestion()
+    }
 }
-checkAnswer
+
 
 
 // countdown timer 
