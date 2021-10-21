@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>highscores</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="js/questions.js"></script>
+  <script src="js/scores.js"></script>
+  <title>Highscores</title>
 </head>
+
 <body>
-    <main>
-    
-      <h1>Highscores</h1>
-      <h2>Enter Initials:</h2>
-        <input type="text" id="Score" name="Score" value=""><br>
-        <button id="Submit">Submit</button>
-        <button id="Clear High Score">Clear High Score</button>
-   </main>
-   <script src="questions.js"></script>
-   <script src="logic.js"></script>
+  <main>
+    <h1>Highscores</h1>
+    <h2>Enter Initials:</h2>
+  </main>
+  <!-- in here to create a div for an ordered list to hide upon input of initials
+   -->
+  <form>
+    <input type="text" name="userinput">
+    <input type="button" value="Add " onclick="AddLi(userinput.value)">
+  </form>
+  <span id="out" />
+
 </body>
+
 </html>

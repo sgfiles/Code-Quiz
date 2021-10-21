@@ -1,7 +1,6 @@
 var timer = questions.length * 15;
 var timeId;
 var currentQuestionIndex = 0;
-var score = 0
 
 //DOM Elements
 var startBtn = document.querySelector("#start");
@@ -11,7 +10,7 @@ var questionChoices = document.querySelector("#choices");
 var endScreen = document.querySelector("#end-screen");
 var highScoreName = document.querySelector("#initials")
 var seeAnswer = document.querySelector("#checkAnswer")
-
+var feedbackElement = document.querySelector("#feedback")
 //Start the quiz
 function startQuiz() {
     //Hide start screen
@@ -20,6 +19,8 @@ function startQuiz() {
 
      ///show questions
      questionsElement.removeAttribute("class", "unhide");
+     timerId = setInterval(clock, 1000)
+     timerElement.textContent = timer
      getCurrentQuestion();
     }
 
@@ -43,88 +44,69 @@ function getCurrentQuestion() {
   }
 }
 
-
 function checkAnswer () {
- console.log(this);
-  if (this.value === questions[currentQuestionIndex].answer) {
-    console.log("correct");
-} else if (this.value !== questions[currentQuestionIndex].answer) {
-    console.log("wrong");
- }
+  if (this.value !== questions[currentQuestionIndex.answer]) {
+    timer -= 15
+    if (timer < 0) {
+      timer = 0
+      timerElement.textContent = timer
+
+      feedbackElement.textContent = "WRONG";
+    } else {
+      feedbackElement.textContent = "CORRECT";
+    }
+  }
+//   if (this.value === questions[currentQuestionIndex].answer) {
+//     feedbackElement.textContent = "CORRECT";
+// } else if (this.value !== questions[currentQuestionIndex].answer) {
+//     feedbackElement.textContent = "WRONG";
+//  }
+
+feedbackElement.setAttribute("class", "feedback");
+setTimeout(function(){
+  feedbackElement.setAttribute("class","feedback hide")
+}, 500)
+
+
   currentQuestionIndex++ 
-  getCurrentQuestion()
-  if (currentQuestionIndex === questions.length) {
-    /// end quiz function
-    //function endscreen() 
+ if (currentQuestionIndex === questions.length) {
+    endQuiz()
+    /// end quiz function/function endscreen() 
   }else {
       getCurrentQuestion()
     }
 }
 
-
-
-// countdown timer 
-var timer = document.querySelector(".time");
-var mainEl = document.getElementById("main");
-
-var secondsLeft = 60;
-var timerInterval; //global
-
-function setTime() {
-  timerInterval = setInterval(timer, 60000);
+function endQuiz() {
+  clearInterval(timerId)
+  var endScreenElement = document.getElementById("end-screen")
+  endScreenElement.removeAttribute("class");
+  var finalScoreElement = document.getElementById("final-score")
+  finalScoreElement.textContent = timer
+  questionsElement.setAttribute("class", "hide");
 }
 
-
-function timer() {
-  secondsLeft--;
-  timerElement.textContent = secondsLeft + "time's running out";
-
-  if(secondsLeft === 0) {
-    clearInterval(timerInterval);
-    sendmessage();
+function clock() {
+  timer--
+  timerElement.textContent = timer
+  if (timer <= 0) {
+    endQuiz()
   }
 }
- function sendMessage() {
-   timerElement.textContent = "Time's up";
- }
 
-/*var count = 60;
-var timer = setInterval(function() {
-  console.log(count);
-  count--;
-  if(count === 0) {
-    stopInterval()
-  }
-}, 1000);
-
-var stopInterval = function() {
-  console.log('time is up!');
-  clearInterval(timer);
-}*/
-function gameOver() {
+  function gameOver() {
   questionsElement.classList.add("hide");
   endScreenElement.classList.remove("hide");
   document.getElementById("final-score").textContent = timeLeft;
 }
-// local storage 
-
-function storeScores() {
-
-  var highScore = {
-    initials: initials.value,
-    highscore: score.value,
-  };
-    localStorage.setItem("highscores", JSON.stringify("highscores"));
+function finalScores() {
+  const username = initialsEl.value
+  const finalScore = {
+    initials: username,
+    score: seconds
+  }
 }
 
-function renderScores() {
-    let storeScores = JSON.parse(localStorage.getItem(scorelist));
-
-    //update scores if scores retrieved from local
-    if (storeScores !== null) {
-        highscore = storedscores;
-    } 
-}
 
 
 startBtn.addEventListener("click", startQuiz)
